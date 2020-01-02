@@ -17,31 +17,23 @@ class App extends React.Component {
       location: false,
       addNewLocation: false,
       addNewOperation: false,
-
     }
-    
-  }
-
-  updateLocation(search) {
-    fetch(`/location/${search}`)
-      .then(data => data.json())
-      .then(result => this.setState({locationInfo: result}))
   }
 
   render() {
     let view;
-    if (this.landingPage) {
+    if (this.state.landingPage) {
       view = <LandingContainer/>;
-    } else if (this.location) {
-      view = <MainContainer/>;
-    } else if (this.addNewLocation) {
+    } else if (this.state.location) {
+      view = <MainContainer locationInfo={this.state.locationInfo}/>;
+    } else if (this.state.addNewLocation) {
       view = <NewLocationContainer/>;
-    } else if (this.addNewOperation) {
+    } else if (this.state.addNewOperation) {
       view = <NewProcedureContainer/>
     }
     return (
-      <div id="app">
-        <HeaderContainer/>
+      <div id="App">
+        <HeaderContainer location={this.state.location}/>
         { view }
       </div>
     )
