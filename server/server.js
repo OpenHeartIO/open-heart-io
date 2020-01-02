@@ -21,6 +21,16 @@ app.get('/search/:id', procedure.getName, (req, res) => {
     res.status(200).send(res.locals.info)
 })
 
+// Handle post request from 'Add New Location' page (NewLocation component)
+app.post('/newlocation', (req, res) => {
+    res.sendStatus(200)
+})
+
+// Handle post request from 'Add New Procedure' page (NewProcedure component)
+app.post('/newprocedure', (req, res) => {
+    res.sendStatus(200)
+})
+
 //add information to location
 app.post('/create', procedure.createEntry, (req, res) => {
     res.sendStatus(200)
