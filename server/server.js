@@ -25,7 +25,7 @@ app.get('/search', procedure.getName, procedure.getAverage, procedure.nameParse,
   if (res.locals.parsed) {
     res.status(200).send(res.locals.parsed)
   } else {
-    res.sendStatus(400)
+    res.send({msg: 'failed'})
   }
 })
 

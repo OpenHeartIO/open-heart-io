@@ -58,7 +58,7 @@ class App extends React.Component {
     for (let i = 0; i < properties.length; i++) {
       this.state[properties[i]] ? updateObj[properties[i]] = false : updateObj[properties[i]] = true;
     }
-    this.setState({updateObj});
+    this.setState(updateObj);
   }
 
   procedureClick(target) {
