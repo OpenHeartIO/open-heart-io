@@ -15,7 +15,11 @@ const SearchBar = () => {
         type="submit" 
         value="Search"
         onClick={() => {
-          axios.get('/search', {searchLocation})
+          axios.get('/search', {
+            params: {
+              searchLocation
+            }
+          })
             .then(response => {
               // If location exists in db, render Location Overview page
 
