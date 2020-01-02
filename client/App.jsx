@@ -58,7 +58,8 @@ class App extends React.Component {
     for (let i = 0; i < properties.length; i++) {
       this.state[properties[i]] ? updateObj[properties[i]] = false : updateObj[properties[i]] = true;
     }
-    this.setState({updateObj});
+    console.log('Update Obj ', updateObj);
+    this.setState(updateObj);
   }
 
   procedureClick(target) {
@@ -77,7 +78,7 @@ class App extends React.Component {
     if (this.state.addNewProcedure) {
       view = <NewProcedureContainer toggleBoolean={this.toggleBoolean} currentLocation={this.state.currentLocation}/>;
     } else if (this.state.landingPage) {
-      view = <LandingContainer updateCurrentLocation={this.updateCurrentLocation} toggleBoolean={this.toggleBoolean}/>;
+      view = <LandingContainer updateCurrentLocation={this.updateCurrentLocation} toggleBoolean={this.toggleBoolean} forceRender={this.forceRender}/>;
     } else if (this.state.location) {
       view = <MainContainer locationInfo={this.state.locationInfo} currentLocation={this.state.currentLocation} toggleBoolean={this.toggleBoolean} procedureClick={this.procedureClick}/>;
     } else if (this.state.addNewLocation) {
