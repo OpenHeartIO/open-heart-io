@@ -4,7 +4,7 @@ import HeaderContainer from './containers/HeaderContainer.jsx';
 import MainContainer from './containers/MainContainter.jsx';
 import NewLocationContainer from './containers/NewLocationContainer.jsx';
 import NewOperationContainer from './containers/NewOperationContainer.jsx';
-import SearchBar from './components/SearchBar.jsx';
+import LandingContainer from './containers/LandingContainer.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class App extends React.Component {
       // Data from Backend
       locationInfo: null,
       // Booleans for conditional loading
+      landingPage: true,
       location: false,
       addNewLocation: false,
       addNewOperation: false,
@@ -29,13 +30,13 @@ class App extends React.Component {
 
   render() {
     let view;
-    if (!location && !addNewLocation) {
-      view = <SearchBar/>;
-    } else if (location) {
+    if (this.landingPage) {
+      view = <LandingContainer/>;
+    } else if (this.location) {
       view = <MainContainer/>;
-    } else if (addNewLocation) {
+    } else if (this.addNewLocation) {
       view = <NewLocationContainer/>;
-    } else if (addNewOperation) {
+    } else if (this.addNewOperation) {
       view = <NewOperationContainer/>
     }
     return (
