@@ -25,40 +25,49 @@ procedure.getName = (req, res, next) => {
     .catch((err) => next(err))
 }
 
-// procedure.nameParse = (req, res, next) => {
-//     const getName = res.locals.info
-//     const parsed = {};
-//     parsed.procedures = {};
-//     for (let i = 0; i < getName.length; i ++) {
-//         let date = "";
-//         for (let j = 0; j < 11; j ++) {
-//             date += getName[i].date[j]
-//         }
-//         if (Object.hasOwnProperty(parsed.procedures[getName[i].procedure])) {
-//             const current = parsed.procedures[getName[i].procedure]
-//             current.range = res.locals.quickMaths.range
-//             current.avg = res.locals.avg
-//             current.clicked = false;
-//             current.entries.push({
-
-//             })
-//         } else {
-//             parsed.procedures[getName[i].procedure] = {};
-//             const current = parsed.procedures[getName[i].procedure]
-//             current.range = res.locals.quickMaths.range
-//             current.avg = res.locals.quickMaths.avg
-//             current.clicked = false;
-//             current.entries = [{
-//                 "date": date,
-//                 "insurance": insurance,
-//                 "preInsurancecCost": pre_insurance,
-//                 "outOfPocketCost": out_of_pocket,
-//             }]
-//         }
-        
-//     }
-
-// }
+procedure.nameParse = (req, res, next) => {
+    //the results of the search
+    const getName = res.locals.info
+    //new object to send back
+    const parsed = {};
+    //object of procedures
+    parsed.procedures = {};
+    //break apart information from search query for every entry in the search query
+    for (let i = 0; i < getName.length; i ++) {
+        let date = "";
+        for (let j = 0; j < 11; j ++) {
+            date += getName[i].date[j]
+        }
+        let { insurance, preinsuranceCost, oopCost } = getName[i]
+        //check if there is a procedure that exists with the same name already
+        if (parsed.procedures.hasOwnProperty(getName[i].procedure)) {
+            let current = parsed.procedures[getName[i].procedure]
+            current.range = res.locals.quickMaths.rangeOutOfPocket
+            current.avg = res.locals.quickMaths.avgOutOfPocket
+            current.clicked = false;
+            current.entries.push({
+                "date": date,
+                "insruance": insurance,
+                "preInsuranceCost": preinsuranceCost,
+                "outOfPocketCost": oopCost,
+            })
+        } else {
+            parsed.procedures[getName[i].procedure] = {};
+            let current = parsed.procedures[getName[i].procedure]
+            current.range = res.locals.quickMaths.rangeOutOfPocket
+            current.avg = res.locals.quickMaths.avgOutOfPocket
+            current.clicked = false;
+            current.entries = [{
+                "date": date,
+                "insurance": insurance,
+                "preInsurancecCost": preinsuranceCost,
+                "outOfPocketCost": oopCost,
+            }]
+        }
+    }
+    res.locals.parsed = parsed;
+    return next();
+}
 
 
 module.exports = procedure
