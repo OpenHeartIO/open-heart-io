@@ -10,7 +10,7 @@ app.use(express.json());
 
 // Serve html
 app.get('/', (req, res) => {
-    res.status(200).sendFile(path.join(__dirname, '../index.html'));
+  res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
 // Serve build
@@ -21,26 +21,26 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 //     res.status(200).send(res.locals.info)
 // })
 
-app.get('/search', procedure.getName, procedure.getAverage, (req, res) => {
-    res.status(200).send(res.locals.info)
+app.get('/search', procedure.getName, procedure.getAverage, procedure.nameParse, (req, res) => {
+    res.status(200).send(res.locals.parsed)
 })
 
 // Handle post request from NewLocation & NewProcedure components
 app.post('/create', procedure.createEntry, (req, res) => {
-    res.sendStatus(200)
+  res.sendStatus(200)
 })
 
 //404 handler
 app.use('*', (req, res) => {
-    res.sendStatus(404);
-  });
+  res.sendStatus(404);
+});
   
 //global error handler
 app.use((err, req, res, next) => {
-    console.log(err);
-    res.sendStatus(500);
+  console.log(err);
+  res.sendStatus(500);
 });
 
 app.listen(PORT, () => {
-    console.log(`Server listening on port: ${PORT}`);
+  console.log(`Server listening on port: ${PORT}`);
 });
