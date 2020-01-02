@@ -15,77 +15,85 @@ procedure.createEntry = (req, res, next) => {
 
 procedure.getName = (req, res, next) => {
     // const location = req.query.searchLocation;
-    const location = req.params.id;
-    
+    // const location = req.params.id;
+    const location = req.query.location;
+    console.log('req.query', req.query)
     const query = `SELECT * FROM megatable WHERE location=$1`
 
     db.query(query, [location])
     .then((info) => {
-        res.locals.info = info.rows[0];
+        res.locals.info = info.rows;
         next()})
     .catch((err) => next(err))
 }
 
 //finding insurance pricing range and and calculate the average
-
 procedure.getAverage = (req, res, next) => {
-    //filtered by procedure- pre-insurance price 
-    
-    console.log('res.locals.info',res.locals.info)
+    // console.log('res.locals.info in getAverage',res.locals.info)
 
-    const category = req.params.id;
+    const info = res.locals.info;
     
-    const query = `SELECT * FROM megatable WHERE procedure=$1`
+    //range 
+    let outOfPocketMin = res.locals.info[0].out_of_pocket;
+    let outOfPocketMax = res.locals.info[0].out_of_pocket;
+    
+    let preInsuranceMin = res.locals.info[0].pre_insurance;
+    let preInsuranceMax = res.locals.info[0].pre_insurance;
 
-    db.query(query, [category])
-    .then((resp) => {
+    //average
+    let outOfPocketTotal = 0;
+    let outOfPocketCount = 0;
+    let preInsuranceTotal = 0;
+    let preInsuranceCount = 0;
+
+    info.forEach((data) => {
+        // console.log('data',data)
+        outOfPocketTotal += data.out_of_pocket;
+        outOfPocketCount += 1;
         
-        //pre-insurance
-        let preInsurance = 0;
-        let preInsuranceCount = 0;
-        let outOfPocket = 0;
-        let outOfPocketCount = 0;
-        let tempPreIns = resp.rows[0].pre_insurance;
-        let tempPocket = resp.rows[0].out_of_pocket;
-        console.log('tempPreIns', tempPreIns)
-        console.log('tempPocket', tempPocket)
+        
+        //check for out of pocket range
+        if (data.out_of_pocket < outOfPocketMin) {
+            outOfPocketMin = data.out_of_pocket;
+        } else if (data.out_of_pocket > outOfPocketMax) {
+            outOfPocketMax = data.out_of_pocket;
+        }
+        
+         //pre insurance avg
+         preInsuranceTotal += data.pre_insurance;
+         preInsuranceCount += 1;
 
-        resp.rows.forEach((data) => {
-            console.log('data', data)
-            //pre_insurance
-            console.log('data.pre_insurance',data.pre_insurance)
-            preInsurance += data.pre_insurance;
-            preInsuranceCount += 1;
-            if (data.pre_insurance < tempPreIns) {
-                tempPreIns = data.preInsurance;
-            }
-
-            //out_of_pocket
-            console.log('out_of_pocket', data.out_of_pocket)
-            outOfPocket += data.out_of_pocket;
-            outOfPocketCount += 1;
-            if (data.out_of_pocket < tempPreIns) {
-                tempPreIns = data.out_of_pocket;
-            }
-            // console.log('preInsurance', preInsurance)
-            // console.log('outOfPocket', outOfPocket)
-        })
-        //average cost
-        let avgPreInsurance = preInsurance / preInsuranceCount;
-        let avgOutOfPocket = outOfPocket / outOfPocketCount;
-        // console.log('avgPre',avgPreInsurance)
-        // console.log('avgPoc',avgOutOfPocket)
-        console.log('tempPreIns', tempPreIns)
-        console.log('tempPocket', tempPocket)
-
-        res.locals.quickMaths = {
-            avgPreInsurance,
-            avgOutOfPocket
+        //check for pre_insurance range
+        if (data.pre_insurance < preInsuranceMin) {
+            preInsuranceMin = data.pre_insurance;
+            // console.log('preInsuranceMin',preInsuranceMin)
+        } else if (data.pre_insurance > preInsuranceMax) {
+            preInsuranceMax = data.pre_insurance;
         }
 
-        next()})
-    .catch((err) => next(err))
+    })
+
+    let rangeOutOfPocket = [outOfPocketMin, outOfPocketMax];
+    let avgOutOfPocket = outOfPocketTotal / outOfPocketCount;
+    let rangePreInsurance = [preInsuranceMin, preInsuranceMax];
+    let avgPreInsurance = preInsuranceTotal / preInsuranceCount;
+    // console.log('rangeOutOfPocket', rangeOutOfPocket)
+    // console.log('avgOutOfPocket', avgOutOfPocket)
+    // console.log('rangePreInsurance', rangePreInsurance)
+    // console.log('avgPreInsurance', avgPreInsurance)
+
+
+    res.locals.quickMaths = {
+        rangeOutOfPocket,
+        avgOutOfPocket,
+        rangePreInsurance,
+        avgPreInsurance
+    }
+
+    // console.log('res.locals.quickMaths', res.locals.quickMaths)
+    return next();
 }
 
 
 module.exports = procedure
+
