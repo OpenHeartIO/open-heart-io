@@ -21,6 +21,7 @@
   "homepage": "https://github.com/aburkett1/open-heart-io#readme",
   "dependencies": {
     "axios": "^0.19.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "node": "^13.5.0",
     "pg": "^7.17.0",
