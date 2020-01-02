@@ -29,6 +29,7 @@ const SearchBar = (props) => {
               }
               // If location exists in db, render Location Overview page
               else if (response.status === 200) {
+                props.updateInfo(response.data);
                 props.toggleBoolean(["landingPage", "location"]);
               }
             })
