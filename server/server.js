@@ -3,6 +3,8 @@ const app = express();
 const path = require('path');
 const PORT = 3000;
 
+const procedure = require('./controllers/procedureController.js')
+
 // Body parser
 app.use(express.json());
 
@@ -14,8 +16,15 @@ app.get('/', (req, res) => {
 // Serve build
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
-//serve location
-app.use('/search')
+//get location information
+app.get('/search/:id', procedure.getName, (req, res) => {
+    res.status(200).send(res.locals.info)
+})
+
+//add information to location
+app.post('/create', procedure.createEntry, (req, res) => {
+    res.sendStatus(200)
+})
 
 //404 handler
 app.use('*', (req, res) => {

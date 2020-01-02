@@ -3,8 +3,8 @@ import React from  "react";
 import HeaderContainer from './containers/HeaderContainer.jsx';
 import MainContainer from './containers/MainContainter.jsx';
 import NewLocationContainer from './containers/NewLocationContainer.jsx';
-import NewOperationContainer from './containers/NewOperationContainer.jsx';
-import SearchBar from './components/SearchBar.jsx';
+import NewProcedureContainer from './containers/NewProcedureContainer.jsx';
+import LandingContainer from './containers/LandingContainer.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,31 +13,27 @@ class App extends React.Component {
       // Data from Backend
       locationInfo: null,
       // Booleans for conditional loading
+      landingPage: true,
       location: false,
       addNewLocation: false,
       addNewOperation: false,
     }
-    
-  }
-
-  updateLocation(search) {
-    fetch(`/location/${search}`)
-      .then(data => data.json())
-      .then(result => this.setState({locationInfo: result}))
   }
 
   render() {
     let view;
-    if (!location && !addNewLocation) {
-      view = <SearchBar/>;
-    } else if (location) {
+    if (this.state.landingPage) {
+      view = <LandingContainer/>;
+    } else if (this.state.location) {
       view = <MainContainer locationInfo={this.state.locationInfo}/>;
-    } else if (addNewLocation) {
+    } else if (this.state.addNewLocation) {
       view = <NewLocationContainer/>;
+    } else if (this.state.addNewOperation) {
+      view = <NewProcedureContainer/>
     }
     return (
       <div id="App">
-        <HeaderContainer/>
+        <HeaderContainer location={this.state.location}/>
         { view }
       </div>
     )
