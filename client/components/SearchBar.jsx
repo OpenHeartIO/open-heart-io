@@ -23,7 +23,6 @@ const SearchBar = (props) => {
             }
           })
             .then(response => {
-              console.log(response)
               // If location doesn't exist, render Add New Location page
               if (response.data.msg) {
                 props.toggleBoolean(["landingPage", "addNewLocation"]);
