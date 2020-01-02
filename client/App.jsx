@@ -3,7 +3,7 @@ import React from  "react";
 import HeaderContainer from './containers/HeaderContainer.jsx';
 import MainContainer from './containers/MainContainter.jsx';
 import NewLocationContainer from './containers/NewLocationContainer.jsx';
-import OperationsContainer from './containers/OperationContainer.jsx';
+import NewOperationContainer from './containers/NewOperationContainer.jsx';
 import SearchBar from './components/SearchBar.jsx';
 
 class App extends React.Component {
@@ -36,12 +36,12 @@ class App extends React.Component {
     } else if (addNewLocation) {
       view = <NewLocationContainer/>;
     } else if (addNewOperation) {
-      view = <OperationsContainer/>
+      view = <NewOperationContainer/>
     }
     return (
       <div id="app">
         <HeaderContainer/>
-        { view }
+        { views }
       </div>
     )
   }
