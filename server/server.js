@@ -22,7 +22,11 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 // })
 
 app.get('/search', procedure.getName, procedure.getAverage, procedure.nameParse, (req, res) => {
+  if (res.locals.parsed) {
     res.status(200).send(res.locals.parsed)
+  } else {
+    res.sendStatus(400)
+  }
 })
 
 // Handle post request from NewLocation & NewProcedure components

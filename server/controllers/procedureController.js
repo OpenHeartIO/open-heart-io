@@ -32,6 +32,7 @@ procedure.getAverage = (req, res, next) => {
     // console.log('res.locals.info in getAverage',res.locals.info)
 
     const info = res.locals.info;
+    if (!Object.keys(info).length) return next();
     
     //range 
     let outOfPocketMin = res.locals.info[0].out_of_pocket;
@@ -102,10 +103,10 @@ procedure.nameParse = (req, res, next) => {
     //object of procedures
     parsed.procedures = {};
     //break apart information from search query for every entry in the search query
+    if (!Object.keys(getName).length) return next();
     for (let i = 0; i < getName.length; i ++) {
         let date = "";
         let stringed = `${getName[i].date}`
-        console.log(stringed)
         for (let j = 0; j < 10; j ++) {
             date += stringed[j]
         }
