@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const SearchBar = () => {
-  const [searchLocation, setSearchLocation] = useState(null);
+const SearchBar = (props) => {
+  const [location, setLocation] = useState(null);
 
   return (
     <>
       <input 
         id="searchbar" 
         type="search"
-        onChange={(e) => setSearchLocation(e.target.value)}
+        onChange={(e) => setLocation(e.target.value)}
       />
       <input 
         type="submit" 
         value="Search"
         onClick={() => {
+          props.updateCurrentLocation(location);
+
           axios.get('/search', {
             params: {
-              searchLocation
+              location
             }
           })
             .then(response => {

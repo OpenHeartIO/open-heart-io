@@ -17,11 +17,11 @@ app.get('/', (req, res) => {
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
 //get location information
-app.get('/search', procedure.getName, (req, res) => {
-    res.sendStatus(200)
+app.get('/search/:id', procedure.getName, (req, res) => {
+    res.status(200).send(res.locals.info)
 })
 
-//add information to location
+// Handle post request from NewLocation & NewProcedure components
 app.post('/create', procedure.createEntry, (req, res) => {
     res.sendStatus(200)
 })

@@ -1,10 +1,10 @@
 import React from 'react';
 import SearchBar from '../components/SearchBar.jsx';
 
-const LandingContainer = () => {
+const LandingContainer = (props) => {
   return (
     <div id="landing-container">
-      <SearchBar/>
+      <SearchBar updateCurrentLocation={props.updateCurrentLocation}/>
     </div>
   );
 };
