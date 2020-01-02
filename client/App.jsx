@@ -19,12 +19,19 @@ class App extends React.Component {
       addNewProcedure: false,
     }
     this.toggleBoolean = this.toggleBoolean.bind(this);
+    this.procedureClick = this.procedureClick.bind(this);
   }
 
   toggleBoolean(property) {
     const updateObj = {};
     this.state[property] ? updateObj[property] = false : updateObj[property] = true;
     this.setState({updateObj});
+  }
+
+  procedureClick(target) {
+    const clone = JSON.parse(JSON.stringify(this.state.locationInfo));
+    clone.procedures[target].clicked ? clone.procedures[target].clicked = false : clone.procedures[target].clicked = true;
+    this.setState({locationInfo: clone});
   }
 
   render() {
@@ -34,7 +41,7 @@ class App extends React.Component {
     } else if (this.state.landingPage) {
       view = <LandingContainer/>;
     } else if (this.state.location) {
-      view = <MainContainer locationInfo={this.state.locationInfo} toggleBoolean={this.toggleBoolean}/>;
+      view = <MainContainer locationInfo={this.state.locationInfo} currentLocation={this.state.currentLocation} toggleBoolean={this.toggleBoolean} procedureClick={this.updateInfo}/>;
     } else if (this.state.addNewLocation) {
       view = <NewLocationContainer/>;
     }
