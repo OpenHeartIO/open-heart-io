@@ -2,19 +2,14 @@ const db = require('../models/databaseModel.js')
 const procedure = {}
 
 procedure.createEntry = (req, res, next) => {
-    const procedure = req.body.procedure
-    const date = req.body.date
-    const insurance = req.body.insurance
-    const preinsuranceCost = req.body.preinsuranceCost
-    const oopCost = req.body.oopCost
+    const {procedure, date, insurance, preinsuranceCost, oopCost} = req.body
 
-    const query = `INSERT INTO megatable (procedure, date, insurance, preinsuranceCost, oopCost)
-    values(${procedure}, ${date}, ${insurance}, ${preinsuranceCost}, ${oopCost})`
+    const query = `INSERT INTO megatable (procedure, date, insurance, pre_insurance, out_of_pocket)
+    values($1, $2, $3, $4, $5)`
 
-    db.query(query, (error, data) => {
-        if (error) return next(error) 
-        return next()
-    })
+    db.query(query, [procedure, date, insurance, preinsuranceCost, oopCost])
+    .then(()=> next())
+    .catch((err)=> next(err))
 }
 
 module.exports = procedure
