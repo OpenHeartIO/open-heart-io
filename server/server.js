@@ -17,32 +17,18 @@ app.get('/', (req, res) => {
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
 //get location information
-app.get('/search/:id', procedure.getName, procedure.getAverage, (req, res) => {
-    res.status(200).send(res.locals.info)
-})
-
-// app.get('/search', procedure.getName, (req, res) => {
+// app.get('/search/:id', procedure.getName, procedure.getAverage, (req, res) => {
 //     res.status(200).send(res.locals.info)
 // })
 
-// Handle post request from 'Add New Location' page (NewLocation component)
-app.post('/newlocation', (req, res) => {
-    res.sendStatus(200)
+app.get('/search', procedure.getName, procedure.getAverage, (req, res) => {
+    res.status(200).send(res.locals.info)
 })
 
-// Handle post request from 'Add New Procedure' page (NewProcedure component)
-app.post('/newprocedure', (req, res) => {
-    res.sendStatus(200)
-})
-
-//add information to location
+// Handle post request from NewLocation & NewProcedure components
 app.post('/create', procedure.createEntry, (req, res) => {
     res.sendStatus(200)
 })
-
-// app.get('/average/:id', procedure.getAverage, (req, res) => {
-//     res.status(200)
-// })
 
 //404 handler
 app.use('*', (req, res) => {

@@ -51,8 +51,7 @@ procedure.getAverage = (req, res, next) => {
         console.log('tempPocket', tempPocket)
 
         resp.rows.forEach((data) => {
-            // console.log('data', data)
-
+            console.log('data', data)
             //pre_insurance
             console.log('data.pre_insurance',data.pre_insurance)
             preInsurance += data.pre_insurance;

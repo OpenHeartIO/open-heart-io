@@ -1,7 +1,7 @@
 import React, { useState }from 'react';
 import axios from 'axios';
 
-const NewProcedure = () => {
+const NewProcedure = (props) => {
   const [procedure, setProcedure] = useState(null);
   const [date, setDate] = useState(null);
   const [insurance, setInsurance] = useState(null);
@@ -21,14 +21,18 @@ const NewProcedure = () => {
         value="Submit" 
         onClick={() => {
           // Post request to backend
-          axios.post('/newprocedure', {
+          axios.post('/create', {
+            location: props.currentLocation,
             procedure,
             date,
             insurance,
             preinsuranceCost,
             oopCost
           })
-            .then(response => console.log(response))
+            .then(response => {
+              toggleBoolean("addNewProcedure")
+              console.log(response)
+            })
             .catch(err => console.log(err))
         }}
       />
