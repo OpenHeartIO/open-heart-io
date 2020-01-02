@@ -41,7 +41,7 @@ class App extends React.Component {
     return (
       <div id="app">
         <HeaderContainer/>
-        { views }
+        { view }
       </div>
     )
   }
