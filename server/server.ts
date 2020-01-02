@@ -21,7 +21,7 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 //     res.status(200).send(res.locals.info)
 // })
 
-app.get('/search', procedure.getName, procedure.getAverage, procedure.nameParse, (req: JSON, res: { locals: { parsed: any; }; status: (arg0: number) => { (): any; new(): any; send: { (arg0: Object): void; new(): any; }; }; sendStatus: (arg0: number) => void; }) => {
+app.get('/search', procedure.getName, procedure.getAverage, procedure.nameParse, (req: JSON, res: { locals: { parsed: any; }; status: (arg0: number) => { (): any; new(): any; send: { (arg0: any): void; new(): any; }; }; send: (arg0: { msg: string; }) => void; }) => {
   if (res.locals.parsed) {
     res.status(200).send(res.locals.parsed)
   } else {
