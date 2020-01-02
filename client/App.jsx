@@ -16,7 +16,6 @@ class App extends React.Component {
       location: false,
       addNewLocation: false,
       addNewOperation: false,
-
     }
     
   }
@@ -32,14 +31,12 @@ class App extends React.Component {
     if (!location && !addNewLocation) {
       view = <SearchBar/>;
     } else if (location) {
-      view = <MainContainer/>;
+      view = <MainContainer locationInfo={this.state.locationInfo}/>;
     } else if (addNewLocation) {
       view = <NewLocationContainer/>;
-    } else if (addNewOperation) {
-      view = <NewOperationContainer/>
     }
     return (
-      <div id="app">
+      <div id="App">
         <HeaderContainer/>
         { view }
       </div>
