@@ -29,29 +29,17 @@ class App extends React.Component {
   render() {
     let view;
     if (!location && !addNewLocation) {
-      view = (
-        <div id="app">
-          <HeaderContainer/>
-          <SearchBar/>
-        </div>
-      );
+      view = <SearchBar/>;
     } else if (location) {
-      view = (
-        <div id="app">
-          <HeaderContainer/>
-          <MainContainer/>
-        </div>
-      );
+      view = <MainContainer/>;
     } else if (addNewLocation) {
-      view = (
-        <div id="app">
-          <HeaderContainer/>
-          <OperationsContainer/>
-        </div>
-      );
+      view = <OperationsContainer/>;
     }
     return (
-      { view }
+      <div id="app">
+        <HeaderContainer/>
+        { view }
+      </div>
     )
   }
 }
