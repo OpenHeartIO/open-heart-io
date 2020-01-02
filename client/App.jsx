@@ -3,7 +3,7 @@ import React from  "react";
 import HeaderContainer from './containers/HeaderContainer.jsx';
 import MainContainer from './containers/MainContainter.jsx';
 import NewLocationContainer from './containers/NewLocationContainer.jsx';
-import NewOperationContainer from './containers/NewOperationContainer.jsx';
+import NewProcedureContainer from './containers/NewProcedureContainer.jsx';
 import LandingContainer from './containers/LandingContainer.jsx';
 
 class App extends React.Component {
@@ -37,7 +37,7 @@ class App extends React.Component {
     } else if (this.addNewLocation) {
       view = <NewLocationContainer/>;
     } else if (this.addNewOperation) {
-      view = <NewOperationContainer/>
+      view = <NewProcedureContainer/>
     }
     return (
       <div id="app">
