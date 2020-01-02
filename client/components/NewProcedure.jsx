@@ -30,7 +30,7 @@ const NewProcedure = (props) => {
             oopCost
           })
             .then(response => {
-              toggleBoolean("addNewProcedure")
+              props.toggleBoolean(["addNewProcedure"])
               console.log(response)
             })
             .catch(err => console.log(err))

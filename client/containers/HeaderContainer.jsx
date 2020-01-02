@@ -5,7 +5,7 @@ const HeaderContainer = (props) => {
   return(
     <div id="header-container">
       <h4>Open Heart</h4>
-      {props.location ? <SearchBar/> : <></>}
+      {props.location ? <SearchBar updateInfo={props.updateInfo}/> : <></>}
     </div>
   );
 };
