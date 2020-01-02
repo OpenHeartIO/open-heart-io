@@ -15,9 +15,12 @@ class App extends React.Component {
       location: false,
       addNewLocation: false,
       addNewOperation: false,
-
     }
     
+  }
+
+  updateInfo() {
+
   }
 
   updateLocation(search) {
@@ -31,12 +34,12 @@ class App extends React.Component {
     if (!location && !addNewLocation) {
       view = <SearchBar/>;
     } else if (location) {
-      view = <MainContainer/>;
+      view = <MainContainer locationInfo={this.state.locationInfo}/>;
     } else if (addNewLocation) {
       view = <OperationsContainer/>;
     }
     return (
-      <div id="app">
+      <div id="App">
         <HeaderContainer/>
         { view }
       </div>
