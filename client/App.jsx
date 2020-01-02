@@ -17,6 +17,8 @@ class App extends React.Component {
       location: false,
       addNewLocation: false,
       addNewProcedure: false,
+      // Current location to pass down to NewProcedure 
+      currentLocation: null
     }
     this.toggleBoolean = this.toggleBoolean.bind(this);
   }
@@ -27,12 +29,16 @@ class App extends React.Component {
     this.setState({updateObj});
   }
 
+  updateCurrentLocation = (location) => {
+    this.setState({currentLocation: location})
+  }
+
   render() {
     let view;
     if (this.state.addNewProcedure) {
-      view = <NewProcedureContainer toggleBoolean={this.toggleBoolean}/>;
+      view = <NewProcedureContainer toggleBoolean={this.toggleBoolean} currentLocation={this.state.currentLocation}/>;
     } else if (this.state.landingPage) {
-      view = <LandingContainer/>;
+      view = <LandingContainer updateCurrentLocation={this.state.updateCurrentLocation}/>;
     } else if (this.state.location) {
       view = <MainContainer locationInfo={this.state.locationInfo} toggleBoolean={this.toggleBoolean}/>;
     } else if (this.state.addNewLocation) {
