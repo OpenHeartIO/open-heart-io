@@ -19,37 +19,10 @@ class App extends React.Component {
       addNewProcedure: false,
       // Current location to pass down to NewProcedure 
       currentLocation: null
-
-      // // Test state //
-      // // Data from Backend
-      // locationInfo: {
-      //   locationName: "hell",
-      //   procedures: {
-      //     procedure1: {
-      //       range: [20, 40],
-      //       avg: 33,
-      //       clicked: false,
-      //       entries: [{ date: "4-11-19", insurance: "blaj", preInsuranceCost: 1000, outOfPocketCost: 20 }, { date: "4-11-19", insurance: "pla", preInsuranceCost: 5000, outOfPocketCost: 150 }],
-      //     },
-      //     procedure2: {
-      //       range: [50, 60],
-      //       avg: 51,
-      //       clicked: false,
-      //       entries: [{ date: "4-11-19", insurance: "crap", preInsuranceCost: 2000, outOfPocketCost: 30 }, { date: "4-11-19", insurance: "rawr", preInsuranceCost: 6000, outOfPocketCost: 50 }],
-      //     }
-      //   }
-      // },
-      // // Booleans for conditional loading
-      // landingPage: false,
-      // location: true,
-      // addNewLocation: false,
-      // addNewProcedure: false,
-      // // Current location to pass down to NewProcedure 
-      // currentLocation: "hell",
-      // // End Test state //
     }
     this.toggleBoolean = this.toggleBoolean.bind(this);
     this.procedureClick = this.procedureClick.bind(this);
+    this.updateInfo = this.updateInfo.bind(this);
     this.updateCurrentLocation = this.updateCurrentLocation.bind(this);
   }
 
@@ -62,10 +35,13 @@ class App extends React.Component {
   }
 
   procedureClick(target) {
-    console.log(target)
     const clone = JSON.parse(JSON.stringify(this.state.locationInfo));
     clone.procedures[target].clicked ? clone.procedures[target].clicked = false : clone.procedures[target].clicked = true;
     this.setState({locationInfo: clone});
+  }
+
+  updateInfo(info) {
+    this.setState({locationInfo: info})
   }
         
   updateCurrentLocation = (location) => {
@@ -77,7 +53,7 @@ class App extends React.Component {
     if (this.state.addNewProcedure) {
       view = <NewProcedureContainer toggleBoolean={this.toggleBoolean} currentLocation={this.state.currentLocation}/>;
     } else if (this.state.landingPage) {
-      view = <LandingContainer updateCurrentLocation={this.updateCurrentLocation} toggleBoolean={this.toggleBoolean}/>;
+      view = <LandingContainer updateCurrentLocation={this.updateCurrentLocation} toggleBoolean={this.toggleBoolean} updateInfo={this.updateInfo}/>;
     } else if (this.state.location) {
       view = <MainContainer locationInfo={this.state.locationInfo} currentLocation={this.state.currentLocation} toggleBoolean={this.toggleBoolean} procedureClick={this.procedureClick}/>;
     } else if (this.state.addNewLocation) {
@@ -85,7 +61,7 @@ class App extends React.Component {
     }
     return (
       <div id="App">
-        <HeaderContainer location={this.state.location}/>
+        <HeaderContainer location={this.state.location} updateInfo={this.updateInfo}/>
         { view }
       </div>
     )
