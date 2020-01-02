@@ -2,6 +2,7 @@ const db = require('../models/databaseModel.js')
 const procedure = {}
 
 procedure.createEntry = (req, res, next) => {
+    console.log('in create entry')
     const {procedure, date, insurance, preinsuranceCost, oopCost} = req.body
 
     const query = `INSERT INTO megatable (procedure, date, insurance, pre_insurance, out_of_pocket)

@@ -27,6 +27,7 @@ app.get('/search', procedure.getName, procedure.getAverage, (req, res) => {
 
 // Handle post request from NewLocation & NewProcedure components
 app.post('/create', procedure.createEntry, (req, res) => {
+    console.log('in create on way back')
     res.sendStatus(200)
 })
 
