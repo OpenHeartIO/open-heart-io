@@ -19,10 +19,6 @@ class App extends React.Component {
     
   }
 
-  updateInfo() {
-
-  }
-
   updateLocation(search) {
     fetch(`/location/${search}`)
       .then(data => data.json())
