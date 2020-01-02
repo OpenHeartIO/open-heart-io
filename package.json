@@ -1,0 +1,56 @@
+{
+  "name": "openheart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "concurrently \"cross-env NODE_ENV=development webpack-dev-server --open \" \"nodemon server/server.js\"",
+    "lint": "./node_modules/.bin/eslint --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aburkett1/open-heart-io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aburkett1/open-heart-io/issues"
+  },
+  "homepage": "https://github.com/aburkett1/open-heart-io#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node": "^13.5.0",
+    "pg": "^7.17.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "concurrently": "^5.0.2",
+    "cross-env": "^6.0.3",
+    "css-loader": "^3.4.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "file-loader": "^5.0.2",
+    "node-sass": "^4.13.0",
+    "nodemon": "^2.0.2",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.1.2",
+    "url-loader": "^3.0.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
+  }
+}
