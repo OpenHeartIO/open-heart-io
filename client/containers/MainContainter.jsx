@@ -35,6 +35,10 @@ const MainContainer = (props) => {
   }
   return (
     <div id="MainContainer">
+      <div id="location">
+        <div id={props.locationInfo.locationName}>{props.locationInfo.locationName}</div>
+        <button onClick={() => props.toggleBoolean("addNewProcedure")}>+</button>
+      </div>
       { proceduresArray }
     </div>
   )

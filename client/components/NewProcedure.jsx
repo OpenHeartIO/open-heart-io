@@ -29,7 +29,10 @@ const NewProcedure = (props) => {
             preinsuranceCost,
             oopCost
           })
-            .then(response => console.log(response))
+            .then(response => {
+              toggleBoolean("addNewProcedure")
+              console.log(response)
+            })
             .catch(err => console.log(err))
         }}
       />

@@ -16,9 +16,9 @@ app.get('/', (req, res) => {
 // Serve build
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
-// Handle get request from SearchBar component
-app.get('/search', procedure.getName, (req, res) => {
-    res.sendStatus(200)
+//get location information
+app.get('/search/:id', procedure.getName, (req, res) => {
+    res.status(200).send(res.locals.info)
 })
 
 // Handle post request from NewLocation & NewProcedure components
