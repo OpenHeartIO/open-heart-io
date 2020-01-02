@@ -25,16 +25,16 @@ const MainContainer = (props) => {
   const proceduresArray = [];
   for (let x in procedures) {
     proceduresArray.push(
-      <button id={x} onClick={(e) => props.procedureClick(e.target.id)}>
-        <span>{x}</span>
-        <span id="costs">
-          <span id="avgCost">
-            <span>Average Cost:</span>
-            <span>{procedures[x].avg}</span>
+      <button id={x} className={x} onClick={(e) => props.procedureClick(e.target.className)}>
+        <span className={x}>{x}</span>
+        <span id="costs" className={x}>
+          <span id="avgCost" className={x}>
+            <span className={x}>Average Cost:</span>
+            <span className={x}>{procedures[x].avg}</span>
           </span>
-          <span id="costRange">
-            <span>Cost Range:</span>
-            <span>{procedures[x].range}</span>
+          <span id="costRange" className={x}>
+            <span className={x}>Cost Range:</span>
+            <span className={x}>{procedures[x].range}</span>
           </span>
         </span>
       </button>
