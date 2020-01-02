@@ -20,6 +20,11 @@ module.exports = {
               }
             },
             {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+            {
                 test: /\.(s*)css$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
             },
@@ -29,11 +34,14 @@ module.exports = {
             },
         ]
     },
+    resolve: {
+        extensions: [ '.tsx', '.ts', '.js' ],
+    },
     devServer: {
         publicPath: '/build',
         proxy: {
             '/': 'http://localhost:3000',
-            '/news': 'http://localhost:3000/news',
+            '/location': 'http://localhost:3000/location',
             '/messages': 'http://localhost:3000/messages'
         }   
     }
