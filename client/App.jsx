@@ -18,13 +18,6 @@ class App extends React.Component {
       addNewLocation: false,
       addNewOperation: false,
     }
-    
-  }
-
-  updateLocation(search) {
-    fetch(`/location/${search}`)
-      .then(data => data.json())
-      .then(result => this.setState({locationInfo: result}))
   }
 
   render() {
@@ -40,7 +33,7 @@ class App extends React.Component {
     }
     return (
       <div id="App">
-        <HeaderContainer/>
+        <HeaderContainer location={this.state.location}/>
         { view }
       </div>
     )
