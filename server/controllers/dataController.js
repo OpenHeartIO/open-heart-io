@@ -7,6 +7,13 @@ db.query();
 
 procedure.getName = (req, res, next) => {
     //location name === name that is sent
-    let name = req.body.name;
-    
+    const location = req.body.location;
+    const query = `SELECT * FROM megatable where location=${location}`
+    db.query(query, (err, data) => {
+        if (err) {
+            return next(err);
+        } else {
+            return next;
+        }
+    })
 }
