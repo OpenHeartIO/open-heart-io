@@ -104,8 +104,10 @@ procedure.nameParse = (req, res, next) => {
     //break apart information from search query for every entry in the search query
     for (let i = 0; i < getName.length; i ++) {
         let date = "";
-        for (let j = 0; j < 11; j ++) {
-            date += getName[i].date[j]
+        let stringed = `${getName[i].date}`
+        console.log(stringed)
+        for (let j = 0; j < 10; j ++) {
+            date += stringed[j]
         }
         let { insurance, preinsuranceCost, oopCost } = getName[i]
         //check if there is a procedure that exists with the same name already
