@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const NewLocation = () => {
-  const [newLocation, setNewLocation] = useState(null);
+  const [location, setLocation] = useState(null);
   const [procedure, setProcedure] = useState(null);
   const [date, setDate] = useState(null);
   const [insurance, setInsurance] = useState(null);
@@ -11,7 +11,7 @@ const NewLocation = () => {
   
   return (
     <div id="new-location-form">
-      <div>Location Name: <input id="location-input" type="text" onChange={(e) => setNewLocation(e.target.value)}/></div>
+      <div>Location Name: <input id="location-input" type="text" onChange={(e) => setLocation(e.target.value)}/></div>
       <div>Procedure: <input type="text" onChange={(e) => setProcedure(e.target.value)}/></div>
       <div>Date Performed: <input type="date" onChange={(e) => setDate(e.target.value)}/></div>
       <div>Insurance Provider: <input type="text" onChange={(e) => setInsurance(e.target.value)}/></div>
@@ -23,8 +23,8 @@ const NewLocation = () => {
         value="Submit"
         onClick={() => {
           // Post request logic
-          axios.post('/newlocation', {
-            newLocation,
+          axios.post('/create', {
+            location,
             procedure,
             date,
             insurance,
