@@ -21,17 +21,7 @@ app.get('/search', procedure.getName, (req, res) => {
     res.sendStatus(200)
 })
 
-// Handle post request from 'Add New Location' page (NewLocation component)
-app.post('/newlocation', (req, res) => {
-    res.sendStatus(200)
-})
-
-// Handle post request from 'Add New Procedure' page (NewProcedure component)
-app.post('/newprocedure', (req, res) => {
-    res.sendStatus(200)
-})
-
-//add information to location
+// Handle post request from NewLocation & NewProcedure components
 app.post('/create', procedure.createEntry, (req, res) => {
     res.sendStatus(200)
 })

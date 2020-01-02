@@ -17,19 +17,25 @@ class App extends React.Component {
       location: false,
       addNewLocation: false,
       addNewOperation: false,
+      // Current location to pass down to NewProcedure 
+      currentLocation: null
     }
+  }
+
+  updateCurrentLocation = (location) => {
+    this.setState({currentLocation: location})
   }
 
   render() {
     let view;
     if (this.state.landingPage) {
-      view = <LandingContainer/>;
+      view = <LandingContainer updateCurrentLocation={this.state.updateCurrentLocation}/>;
     } else if (this.state.location) {
       view = <MainContainer locationInfo={this.state.locationInfo}/>;
     } else if (this.state.addNewLocation) {
       view = <NewLocationContainer/>;
     } else if (this.state.addNewOperation) {
-      view = <NewProcedureContainer/>
+      view = <NewProcedureContainer currentLocation={this.state.currentLocation}/>
     }
     return (
       <div id="App">
