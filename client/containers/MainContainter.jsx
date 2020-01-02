@@ -5,9 +5,13 @@ import React from 'react';
  *  locationName: String,
  *  procedures: {
  *    procedure1: {
+ *      range: Number,
+ *      avg: Number,
  *      clicked: false,
  *      entries: [{ date: String, insurance: String, preInsuranceCost: Number, outOfPocketCost: Number }, { date: String, insurance: String, preInsuranceCost: Number, outOfPocketCost: Number }, etc],
  *    procedure2: {
+ *      range: Number,
+ *      avg: Number,
  *      clicked: false,
  *      entries: [{ date: String, insurance: String, preInsuranceCost: Number, outOfPocketCost: Number }, { date: String, insurance: String, preInsuranceCost: Number, outOfPocketCost: Number }, etc],
  *    etc...
@@ -15,11 +19,26 @@ import React from 'react';
  * }
 */
 
+
 const MainContainer = (props) => {
   const { procedures } = props.locationInfo;
   const proceduresArray = [];
   for (let x in procedures) {
-    proceduresArray.push(<button id={x} onClick={(e) => props.updateInfo(e.target.id)}>{x}</button>);
+    proceduresArray.push(
+      <button id={x} onClick={(e) => props.procedureClick(e.target.id)}>
+        <span>{x}</span>
+        <span id="costs">
+          <span id="avgCost">
+            <span>Average Cost:</span>
+            <span>{procedures[x].avg}</span>
+          </span>
+          <span id="costRange">
+            <span>Cost Range:</span>
+            <span>{procedures[x].range}</span>
+          </span>
+        </span>
+      </button>
+    );
     if (procedures[x].clicked) {
       for (let i = 0; i < procedures[x].entries.length; i++) {
         proceduresArray.push(
@@ -35,6 +54,10 @@ const MainContainer = (props) => {
   }
   return (
     <div id="MainContainer">
+      <div id="location">
+        <div id={props.currentLocation}>{props.currentLocation}</div>
+        <button onClick={() => props.toggleBoolean("addNewProcedure")}>+</button>
+      </div>
       { proceduresArray }
     </div>
   )
