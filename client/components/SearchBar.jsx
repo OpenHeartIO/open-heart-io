@@ -24,9 +24,13 @@ const SearchBar = (props) => {
           })
             .then(response => {
               // If location exists in db, render Location Overview page
-
+              if (response.status === 200) {
+                props.toggleBoolean(["landingPage", "location"]);
+              }
               // If location doesn't exist, render Add New Location page
-              
+              else if (response.status === 400) {
+                props.toggleBoolean(["landingPage", "addNewLocation"]);
+              }
             })
             .catch(err => console.log(err))
         }}
