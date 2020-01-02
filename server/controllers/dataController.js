@@ -9,11 +9,11 @@ procedure.getName = (req, res, next) => {
     //location name === name that is sent
     const location = req.body.location;
     const query = `SELECT * FROM megatable where location=${location}`
-    db.query(query, (err, data) => {
+    db.query(query, location => {
         if (err) {
             return next(err);
         } else {
-            return next;
+            return next();
         }
     })
 }

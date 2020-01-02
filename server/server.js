@@ -14,6 +14,9 @@ app.get('/', (req, res) => {
 // Serve build
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
+//serve location
+app.use('/search')
+
 //404 handler
 app.use('*', (req, res) => {
     res.sendStatus(404);
