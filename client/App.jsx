@@ -22,12 +22,16 @@ class App extends React.Component {
     }
     this.toggleBoolean = this.toggleBoolean.bind(this);
     this.procedureClick = this.procedureClick.bind(this);
+    this.updateInfo = this.updateInfo.bind(this);
+    this.updateCurrentLocation = this.updateCurrentLocation.bind(this);
   }
 
-  toggleBoolean(property) {
+  toggleBoolean(properties) {
     const updateObj = {};
-    this.state[property] ? updateObj[property] = false : updateObj[property] = true;
-    this.setState({updateObj});
+    for (let i = 0; i < properties.length; i++) {
+      this.state[properties[i]] ? updateObj[properties[i]] = false : updateObj[properties[i]] = true;
+    }
+    this.setState(updateObj);
   }
 
   procedureClick(target) {
@@ -35,9 +39,13 @@ class App extends React.Component {
     clone.procedures[target].clicked ? clone.procedures[target].clicked = false : clone.procedures[target].clicked = true;
     this.setState({locationInfo: clone});
   }
+
+  updateInfo(info) {
+    this.setState({locationInfo: info})
+  }
         
   updateCurrentLocation = (location) => {
-    this.setState({currentLocation: location})
+    this.setState({currentLocation: location});
   }
 
   render() {
@@ -45,15 +53,15 @@ class App extends React.Component {
     if (this.state.addNewProcedure) {
       view = <NewProcedureContainer toggleBoolean={this.toggleBoolean} currentLocation={this.state.currentLocation}/>;
     } else if (this.state.landingPage) {
-      view = <LandingContainer updateCurrentLocation={this.state.updateCurrentLocation}/>;
+      view = <LandingContainer updateCurrentLocation={this.updateCurrentLocation} toggleBoolean={this.toggleBoolean} updateInfo={this.updateInfo}/>;
     } else if (this.state.location) {
-      view = <MainContainer locationInfo={this.state.locationInfo} currentLocation={this.state.currentLocation} toggleBoolean={this.toggleBoolean} procedureClick={this.updateInfo}/>;
+      view = <MainContainer locationInfo={this.state.locationInfo} currentLocation={this.state.currentLocation} toggleBoolean={this.toggleBoolean} procedureClick={this.procedureClick}/>;
     } else if (this.state.addNewLocation) {
       view = <NewLocationContainer/>;
     }
     return (
       <div id="App">
-        <HeaderContainer location={this.state.location}/>
+        <HeaderContainer location={this.state.location} updateInfo={this.updateInfo}/>
         { view }
       </div>
     )
