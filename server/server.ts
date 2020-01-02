@@ -9,7 +9,7 @@ const procedure = require('./controllers/procedureController.js')
 app.use(express.json());
 
 // Serve html
-app.get('/', (req, res) => {
+app.get('/', (req: JSON, res: { status: (arg0: number) => { (): any; new(): any; sendFile: { (arg0: any): void; new(): String; }; }; }) => {
   res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
@@ -21,7 +21,7 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 //     res.status(200).send(res.locals.info)
 // })
 
-app.get('/search', procedure.getName, procedure.getAverage, procedure.nameParse, (req, res) => {
+app.get('/search', procedure.getName, procedure.getAverage, procedure.nameParse, (req: JSON, res: { locals: { parsed: any; }; status: (arg0: number) => { (): any; new(): any; send: { (arg0: Object): void; new(): any; }; }; sendStatus: (arg0: number) => void; }) => {
   if (res.locals.parsed) {
     res.status(200).send(res.locals.parsed)
   } else {
@@ -30,21 +30,23 @@ app.get('/search', procedure.getName, procedure.getAverage, procedure.nameParse,
 })
 
 // Handle post request from NewLocation & NewProcedure components
-app.post('/create', procedure.createEntry, (req, res) => {
+app.post('/create', procedure.createEntry, (req: JSON, res: { sendStatus: (arg0: number) => void; }) => {
   res.sendStatus(200)
 })
 
 //404 handler
-app.use('*', (req, res) => {
+app.use('*', (req: JSON, res: { sendStatus: (arg0: number) => void; }) => {
   res.sendStatus(404);
 });
   
 //global error handler
-app.use((err, req, res, next) => {
+app.use((err: any, req: any, res: { sendStatus: (arg0: number) => void; }, next: any) => {
+  // tslint:disable-next-line:no-console
   console.log(err);
   res.sendStatus(500);
 });
 
 app.listen(PORT, () => {
+  // tslint:disable-next-line:no-console
   console.log(`Server listening on port: ${PORT}`);
 });
