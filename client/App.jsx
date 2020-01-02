@@ -34,8 +34,6 @@ class App extends React.Component {
       view = <MainContainer locationInfo={this.state.locationInfo}/>;
     } else if (addNewLocation) {
       view = <NewLocationContainer/>;
-    } else if (addNewOperation) {
-      view = <NewOperationContainer/>
     }
     return (
       <div id="App">
