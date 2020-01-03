@@ -6,6 +6,8 @@ import NewLocationContainer from './containers/NewLocationContainer.jsx';
 import NewProcedureContainer from './containers/NewProcedureContainer.jsx';
 import LandingContainer from './containers/LandingContainer.jsx';
 
+import './stylesheets/style.scss';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
