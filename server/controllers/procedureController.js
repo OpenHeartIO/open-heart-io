@@ -110,7 +110,8 @@ procedure.nameParse = (req, res, next) => {
         for (let j = 0; j < 10; j ++) {
             date += stringed[j]
         }
-        let { insurance, preinsuranceCost, oopCost } = getName[i]
+        console.log(getName[i])
+        let { insurance, pre_insurance, out_of_pocket } = getName[i]
         //check if there is a procedure that exists with the same name already
         if (parsed.procedures.hasOwnProperty(getName[i].procedure)) {
             let current = parsed.procedures[getName[i].procedure]
@@ -119,9 +120,9 @@ procedure.nameParse = (req, res, next) => {
             current.clicked = false;
             current.entries.push({
                 "date": date,
-                "insruance": insurance,
-                "preInsuranceCost": preinsuranceCost,
-                "outOfPocketCost": oopCost,
+                "insurance": insurance,
+                "preInsuranceCost": pre_insurance,
+                "outOfPocketCost": out_of_pocket,
             })
         } else {
             parsed.procedures[getName[i].procedure] = {};
@@ -132,8 +133,8 @@ procedure.nameParse = (req, res, next) => {
             current.entries = [{
                 "date": date,
                 "insurance": insurance,
-                "preInsurancecCost": preinsuranceCost,
-                "outOfPocketCost": oopCost,
+                "preInsurancecCost": pre_insurance,
+                "outOfPocketCost": out_of_pocket,
             }]
         }
     }

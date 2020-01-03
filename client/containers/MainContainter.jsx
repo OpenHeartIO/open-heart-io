@@ -30,11 +30,11 @@ const MainContainer = (props) => {
         <span id="costs" className={x}>
           <span id="avgCost" className={x}>
             <span className={x}>Average Cost:</span>
-            <span className={x}>{procedures[x].avg}</span>
+            <span className={x}>${procedures[x].avg}</span>
           </span>
           <span id="costRange" className={x}>
             <span className={x}>Cost Range:</span>
-            <span className={x}>{procedures[x].range}</span>
+            <span className={x}>${procedures[x].range[0]} - ${procedures[x].range[1]}</span>
           </span>
         </span>
       </button>
@@ -56,7 +56,7 @@ const MainContainer = (props) => {
     <div id="MainContainer">
       <div id="location">
         <div id={props.currentLocation}>{props.currentLocation}</div>
-        <button onClick={() => props.toggleBoolean("addNewProcedure")}>+</button>
+        <button onClick={() => props.toggleBoolean(["addNewProcedure"])}>+</button>
       </div>
       { proceduresArray }
     </div>

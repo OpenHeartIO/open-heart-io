@@ -5,13 +5,14 @@ const SearchBar = (props) => {
   const [location, setLocation] = useState(null);
 
   return (
-    <>
+    <div id="searchbar">
       <input 
-        id="searchbar" 
+        id="bar"
         type="search"
         onChange={(e) => setLocation(e.target.value)}
       />
       <input 
+        id="button"
         type="submit" 
         value="Search"
         onClick={() => {
@@ -29,13 +30,15 @@ const SearchBar = (props) => {
               }
               // If location exists in db, render Location Overview page
               else if (response.status === 200) {
+                console.log(response.data)
+                props.updateInfo(response.data);
                 props.toggleBoolean(["landingPage", "location"]);
               }
             })
             .catch(err => console.log(err))
         }}
       />
-    </>
+    </div>
   );
 };
 

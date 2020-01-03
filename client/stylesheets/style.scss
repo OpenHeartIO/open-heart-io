@@ -1,0 +1,114 @@
+$primary-color: #4386fc;
+$secondary-color: lighten($primary-color, 15%);
+$tertiary-color: lighten($secondary-color, 15%);
+
+$logo-color: white;
+$primary-text-color: #424242;
+$seconday-text-color: #424242;
+
+html, body, #root {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background-color: $tertiary-color;
+}
+
+#App {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+#header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 75px;
+  color: $logo-color;
+  background-color: $primary-color;
+
+  h4 {
+    margin-left: 20px;
+  }
+  div {
+    margin-right: 20px;
+  }
+}
+
+#landing-container {
+  flex-grow: 1;
+  background-color: $secondary-color;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  #searchbar {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    width: 500px;
+    height: 50px;
+    display: flex;
+    top: 30%;
+    position: relative;
+  
+    #bar {
+      flex-grow: 4;
+    }
+    #button {
+      flex-grow: 1;
+    }
+  }
+}
+
+#searchbar {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+#MainContainer {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  margin: 100px;
+
+  button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    #costs {
+      display: flex;
+
+      #avgCost, #costRange {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+      }
+    }
+  }
+  #procedure {
+    display: flex;
+    justify-content: space-around;
+
+  }
+}
+
+#location {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $secondary-color;
+
+  div {
+    margin-left: 7px;
+  }
+  button {
+    border-radius: 100px;
+    border: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    margin: 5px;
+    background-color: #d0efc0;
+  }
+}
