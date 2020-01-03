@@ -64,7 +64,7 @@ class App extends React.Component {
     }
     return (
       <div id="App">
-        <HeaderContainer location={this.state.location} updateInfo={this.updateInfo}/>
+        <HeaderContainer location={this.state.location} updateCurrentLocation={this.updateCurrentLocation} toggleBoolean={this.toggleBoolean} updateInfo={this.updateInfo}/>
         { view }
       </div>
     )
