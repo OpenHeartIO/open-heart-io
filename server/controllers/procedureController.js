@@ -2,13 +2,12 @@ const db = require('../models/databaseModel.js')
 const procedure = {}
 
 procedure.createEntry = (req, res, next) => {
-    console.log('in create entry')
-    const {procedure, date, insurance, preinsuranceCost, oopCost} = req.body
+    const {location, procedure, date, insurance, preinsuranceCost, oopCost} = req.body
 
-    const query = `INSERT INTO megatable (procedure, date, insurance, pre_insurance, out_of_pocket)
-    values($1, $2, $3, $4, $5)`
+    const query = `INSERT INTO megatable (location, procedure, date, insurance, pre_insurance, out_of_pocket)
+    values($1, $2, $3, $4, $5, $6)`
 
-    db.query(query, [procedure, date, insurance, preinsuranceCost, oopCost])
+    db.query(query, [location, procedure, date, insurance, preinsuranceCost, oopCost])
     .then(()=> next())
     .catch((err)=> next(err))
 }
@@ -19,7 +18,7 @@ procedure.getName = (req, res, next) => {
     // const location = req.params.id;
     const location = req.query.location;
     console.log('req.query', req.query)
-    const query = `SELECT * FROM megatable WHERE location=$1`
+    const query = `SELECT * FROM megatable WHERE location=LOWER($1)`
 
     db.query(query, [location])
     .then((info) => {
@@ -33,6 +32,7 @@ procedure.getAverage = (req, res, next) => {
     // console.log('res.locals.info in getAverage',res.locals.info)
 
     const info = res.locals.info;
+    if (!Object.keys(info).length) return next();
     
     //range 
     let outOfPocketMin = res.locals.info[0].out_of_pocket;
@@ -92,6 +92,52 @@ procedure.getAverage = (req, res, next) => {
     }
 
     // console.log('res.locals.quickMaths', res.locals.quickMaths)
+    return next();
+}
+
+procedure.nameParse = (req, res, next) => {
+    //the results of the search
+    const getName = res.locals.info
+    //new object to send back
+    const parsed = {};
+    //object of procedures
+    parsed.procedures = {};
+    //break apart information from search query for every entry in the search query
+    if (!Object.keys(getName).length) return next();
+    for (let i = 0; i < getName.length; i ++) {
+        let date = "";
+        let stringed = `${getName[i].date}`
+        for (let j = 0; j < 10; j ++) {
+            date += stringed[j]
+        }
+        let { insurance, preinsuranceCost, oopCost } = getName[i]
+        //check if there is a procedure that exists with the same name already
+        if (parsed.procedures.hasOwnProperty(getName[i].procedure)) {
+            let current = parsed.procedures[getName[i].procedure]
+            current.range = res.locals.quickMaths.rangeOutOfPocket
+            current.avg = res.locals.quickMaths.avgOutOfPocket
+            current.clicked = false;
+            current.entries.push({
+                "date": date,
+                "insruance": insurance,
+                "preInsuranceCost": preinsuranceCost,
+                "outOfPocketCost": oopCost,
+            })
+        } else {
+            parsed.procedures[getName[i].procedure] = {};
+            let current = parsed.procedures[getName[i].procedure]
+            current.range = res.locals.quickMaths.rangeOutOfPocket
+            current.avg = res.locals.quickMaths.avgOutOfPocket
+            current.clicked = false;
+            current.entries = [{
+                "date": date,
+                "insurance": insurance,
+                "preInsurancecCost": preinsuranceCost,
+                "outOfPocketCost": oopCost,
+            }]
+        }
+    }
+    res.locals.parsed = parsed;
     return next();
 }
 
