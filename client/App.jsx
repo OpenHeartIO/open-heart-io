@@ -33,6 +33,7 @@ class App extends React.Component {
     for (let i = 0; i < properties.length; i++) {
       this.state[properties[i]] ? updateObj[properties[i]] = false : updateObj[properties[i]] = true;
     }
+    console.log('update obj -> ', updateObj);
     this.setState(updateObj);
   }
 
@@ -59,7 +60,7 @@ class App extends React.Component {
     } else if (this.state.location) {
       view = <MainContainer locationInfo={this.state.locationInfo} currentLocation={this.state.currentLocation} toggleBoolean={this.toggleBoolean} procedureClick={this.procedureClick}/>;
     } else if (this.state.addNewLocation) {
-      view = <NewLocationContainer/>;
+      view = <NewLocationContainer toggleBoolean={this.toggleBoolean}/>;
     }
     return (
       <div id="App">
