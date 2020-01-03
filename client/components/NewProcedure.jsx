@@ -36,6 +36,14 @@ const NewProcedure = (props) => {
             .catch(err => console.log(err))
         }}
       />
+      <input 
+        id="location-back"
+        type="submit"
+        value="Back"
+        onClick={() => {
+          props.toggleBoolean(['addNewProcedure']);
+        }}
+      />
     </div>
   );
 };
