@@ -17,8 +17,10 @@ procedure.getName = (req, res, next) => {
     // const location = req.query.searchLocation;
     // const location = req.params.id;
     const location = req.query.location;
-    console.log('req.query', req.query)
-    const query = `SELECT * FROM megatable WHERE location=LOWER($1)`
+    // console.log('location', location)
+    
+    // const query = `SELECT * FROM megatable WHERE location=$1`
+    const query = `SELECT * FROM megatable WHERE location ~* $1`
 
     db.query(query, [location])
     .then((info) => {
