@@ -9,7 +9,7 @@ const SearchBar = (props) => {
       <input 
         id="bar"
         type="search"
-        onChange={(e) => setLocation(e.target.value)}
+        onChange={(e) => setLocation(e.target.value.toUpperCase())}
       />
       <input 
         id="button"
