@@ -40,16 +40,30 @@ const MainContainer = (props) => {
       </button>
     );
     if (procedures[x].clicked) {
+      const entriesTable = [];
+      entriesTable.push(
+        <>
+          <div id="date">Date</div>
+          <div id="insuranceProvider">Provider</div>
+          <div id="preInsurance">Total Cost</div>
+          <div id="outOfPocket">Out of Pocket</div>
+        </>
+      )
       for (let i = 0; i < procedures[x].entries.length; i++) {
-        proceduresArray.push(
-          <div id="procedure">
+        entriesTable.push(
+          <>
             <div id="date">{procedures[x].entries[i].date}</div>
             <div id="insuranceProvider">{procedures[x].entries[i].insurance}</div>
             <div id="preInsurance">{procedures[x].entries[i].preInsuranceCost}</div>
             <div id="outOfPocket">{procedures[x].entries[i].outOfPocketCost}</div>
-          </div>
+          </>
         )
       }
+      proceduresArray.push(
+        <div id="table">
+          { entriesTable }
+        </div>
+      )
     }
   }
   return (
