@@ -32,7 +32,7 @@ const SearchBar = (props) => {
       <input 
         id="bar"
         type="search"
-        onChange={(e) => setLocation(e.target.value)}
+        onChange={(e) => setLocation(e.target.value.toUpperCase())}
         onKeyUp={(e) => {
           if (e.keyCode === 13) getReq();
         }}
