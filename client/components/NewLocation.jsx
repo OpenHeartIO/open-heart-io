@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const NewLocation = () => {
+const NewLocation = (props) => {
   const [location, setLocation] = useState(null);
   const [procedure, setProcedure] = useState(null);
   const [date, setDate] = useState(null);
@@ -33,6 +33,29 @@ const NewLocation = () => {
           })
             .then(response => console.log(response))
             .catch(err => console.log(err))
+        }}
+        onKeyUp={(e) => {
+          if (e.keyCode === 13) {
+            // Post request logic
+            axios.post('/create', {
+              location,
+              procedure,
+              date,
+              insurance,
+              preinsuranceCost,
+              oopCost
+            })
+              .then(response => console.log(response))
+              .catch(err => console.log(err))
+          }
+        }}
+      />
+      <input 
+        id="location-back"
+        type="submit"
+        value="Back"
+        onClick={() => {
+          props.toggleBoolean(['landingPage', 'location']);
         }}
       />
     </div>
